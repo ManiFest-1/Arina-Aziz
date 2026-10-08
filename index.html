@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Арина & Азиз — Свадьба</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ============ ГЛАВНЫЙ ЭКРАН С ФОТО ============ -->
+    <header class="hero">
+    <div class="hero-bg">
+        <img src="images/5.jpg" alt="Арина и Азиз">
+    </div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+        <p class="hero-subtitle">Мы женимся</p>
+
+        <h1 class="hero-title">
+            <span class="hero-name">Арина</span>
+            <span class="hero-amp">
+                <span class="hero-amp-line"></span>
+                <span class="hero-amp-symbol">&</span>
+                <span class="hero-amp-line"></span>
+            </span>
+            <span class="hero-name">Азиз</span>
+        </h1>
+
+        <div class="hero-date">
+            <span class="hero-date-line"></span>
+            <span class="hero-date-text">11 ноября 2026</span>
+            <span class="hero-date-line"></span>
+        </div>
+
+        <p class="hero-location">г. Пермь · Мурашики</p>
+    </div>
+
+    <div class="scroll-hint">
+        <span>Листайте вниз</span>
+        <div class="scroll-arrow"></div>
+    </div>
+</header>
+
+    <!-- ============ О НАС (ПАРА) ============ -->
+    <section class="couple-section" data-aos="fade-up">
+        <div class="section-container">
+            <p class="section-label">О нас</p>
+            <h2 class="section-heading">Дорогие гости!</h2>
+            <p class="section-lead">
+                Совсем скоро наступит самый важный день в нашей жизни. 
+                Мы будем счастливы разделить радость этого события с вами.
+                Ваше присутствие — лучший подарок для нас.
+            </p>
+
+            <div class="couple-grid">
+                <div class="couple-card" data-aos="fade-right">
+                    <div class="couple-photo">
+                        <img src="images/7.jpg" alt="Арина">
+                    </div>
+                    <h3 class="couple-name">Арина</h3>
+                    <p class="couple-role">Невеста</p>
+                </div>
+
+                <div class="couple-card" data-aos="fade-left">
+                    <div class="couple-photo">
+                        <img src="images/6.jpg" alt="Азиз">
+                    </div>
+                    <h3 class="couple-name">Азиз</h3>
+                    <p class="couple-role">Жених</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ ДЕТАЛИ ============ -->
+    <section class="details-section" data-aos="fade-up">
+        <div class="section-container">
+            <p class="section-label">Детали</p>
+            <h2 class="section-heading">Когда и где</h2>
+
+            <div class="details-grid">
+                <div class="detail-card">
+                    <div class="detail-icon">✦</div>
+                    <h3>Когда</h3>
+                    <p class="detail-main">11 ноября 2026</p>
+                    <p class="detail-text">
+                        Сбор гостей — 15:00<br>
+                        Церемония — 16:00<br>
+                        Банкет — 18:00
+                    </p>
+                </div>
+
+                <div class="detail-card">
+                    <div class="detail-icon">✦</div>
+                    <h3>Где</h3>
+                    <p class="detail-main">Банкетная площадка «Мурашики»</p>
+                    <p class="detail-text">
+                        г. Пермь,<br>
+                        ул. Победы, д. 21
+                    </p>
+                    <a href="https://yandex.ru/maps/-/CXqB7Rkv" 
+                       target="_blank" 
+                       rel="noopener" 
+                       class="detail-link">
+                        Открыть на карте →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ ГАЛЕРЕЯ ============ -->
+    <section class="gallery-section" data-aos="fade-up">
+        <div class="section-container-wide">
+            <p class="section-label">Моменты</p>
+            <h2 class="section-heading">Наша история</h2>
+
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="images/5.jpg" alt="Арина и Азиз">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/1.jpg" alt="Арина и Азиз">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/4.jpg" alt="Арина и Азиз">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/2.jpg" alt="Арина и Азиз">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/3.jpg" alt="Арина и Азиз">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ ТАЙМЕР ============ -->
+    <section class="timer-section" data-aos="fade-up">
+        <div class="section-container">
+            <p class="section-label">Осталось</p>
+            <h2 class="section-heading">До торжества</h2>
+
+            <div class="timer" id="countdown">
+                <div class="timer-item">
+                    <span class="timer-number" id="days">00</span>
+                    <span class="timer-label">Дней</span>
+                </div>
+                <div class="timer-item">
+                    <span class="timer-number" id="hours">00</span>
+                    <span class="timer-label">Часов</span>
+                </div>
+                <div class="timer-item">
+                    <span class="timer-number" id="minutes">00</span>
+                    <span class="timer-label">Минут</span>
+                </div>
+                <div class="timer-item">
+                    <span class="timer-number" id="seconds">00</span>
+                    <span class="timer-label">Секунд</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ КНОПКИ ДЕЙСТВИЙ ============ -->
+    <section class="actions-section" data-aos="fade-up">
+        <div class="section-container">
+            <p class="section-label">Что дальше?</p>
+            <h2 class="section-heading">Ответьте нам</h2>
+            <p class="section-lead">
+                Пожалуйста, подтвердите своё присутствие до 25 октября 2026 
+                и загляните в наш вишлист.
+            </p>
+
+            <div class="action-buttons">
+                <button class="action-btn" id="openRsvpBtn">
+                    <span class="action-btn-icon">✓</span>
+                    <span class="action-btn-title">Подтвердить присутствие</span>
+                    <span class="action-btn-hint">Ответьте, придёте ли вы</span>
+                </button>
+
+                <button class="action-btn" id="openWishlistBtn">
+                    <span class="action-btn-icon">✦</span>
+                    <span class="action-btn-title">Вишлист</span>
+                    <span class="action-btn-hint">Список наших пожеланий</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-names">Арина <span class="amp">&</span> Азиз</p>
+            <p class="footer-date">11 ноября 2026</p>
+            <p class="footer-love">С любовью ❤️</p>
+        </div>
+    </footer>
+
+    <!-- ============ МОДАЛЬНОЕ ОКНО: RSVP ============ -->
+    <div class="modal-overlay" id="rsvpModal">
+        <div class="modal">
+            <button class="modal-close" data-close-modal aria-label="Закрыть">×</button>
+            <p class="modal-label">RSVP</p>
+            <h2 class="modal-title">Подтверждение присутствия</h2>
+            <p class="modal-subtitle">Пожалуйста, ответьте до 25 октября 2026</p>
+
+            <form class="rsvp-form" id="rsvpForm">
+                <div class="form-group">
+                    <label for="name">Ваше Имя и Фамилия</label>
+                    <input type="text" id="name" required placeholder="Иван Иванов">
+                </div>
+
+                <div class="form-group">
+                    <label>Вы придете?</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="attendance" value="yes" required>
+                            <span>Да, буду</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="attendance" value="no">
+                            <span>К сожалению, нет</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" id="guestsGroup">
+                    <label for="guests">Сколько вас будет? (включая вас)</label>
+                    <select id="guests">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="drinks">Предпочтения по напиткам</label>
+                    <select id="drinks">
+                        <option value="wine">Вино</option>
+                        <option value="vodka">Водка</option>
+                        <option value="whiskey">Виски</option>
+                        <option value="none">Безалкогольные</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="comment">Комментарий или пожелание</label>
+                    <textarea id="comment" rows="3" placeholder="Например: аллергия на орехи"></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Отправить ответ</button>
+            </form>
+
+            <div id="successMessage" class="success-message">
+                <div class="success-icon">✓</div>
+                <h3>Спасибо!</h3>
+                <p>Ваш ответ отправлен. Мы очень ждем встречи!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ МОДАЛЬНОЕ ОКНО: ВИШЛИСТ ============ -->
+    <div class="modal-overlay" id="wishlistModal">
+        <div class="modal">
+            <button class="modal-close" data-close-modal aria-label="Закрыть">×</button>
+            <p class="modal-label">Wishlist</p>
+            <h2 class="modal-title">Наш вишлист</h2>
+            <p class="modal-subtitle">
+                Ваше присутствие — главный подарок.<br>
+                Но если хотите нас порадовать:
+            </p>
+
+            <ul class="wishlist">
+                <li class="wishlist-item">
+                    <div class="wishlist-icon">🏠</div>
+                    <div class="wishlist-info">
+                        <strong>Вклад в семейное гнёздышко</strong>
+                        <p>Поможет нам обустроить дом после свадьбы</p>
+                    </div>
+                </li>
+                <li class="wishlist-item">
+                    <div class="wishlist-icon">🍽️</div>
+                    <div class="wishlist-info">
+                        <strong>Сервиз на 12 персон</strong>
+                        <p>Белый фарфор, классический дизайн</p>
+                    </div>
+                </li>
+                <li class="wishlist-item">
+                    <div class="wishlist-icon">☕</div>
+                    <div class="wishlist-info">
+                        <strong>Кофемашина</strong>
+                        <p>Для уютных утр вдвоём</p>
+                    </div>
+                </li>
+                <li class="wishlist-item">
+                    <div class="wishlist-icon">📚</div>
+                    <div class="wishlist-info">
+                        <strong>Подарочная карта в книжный</strong>
+                        <p>Мы очень любим читать</p>
+                    </div>
+                </li>
+                <li class="wishlist-item">
+                    <div class="wishlist-icon">✈️</div>
+                    <div class="wishlist-info">
+                        <strong>Вклад в свадебное путешествие</strong>
+                        <p>Мы мечтаем об Италии</p>
+                    </div>
+                </li>
+            </ul>
+
+            <p class="wishlist-note">
+                Если вы не нашли подходящего варианта — не переживайте,
+                мы будем счастливы любому вашему вниманию.
+            </p>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
