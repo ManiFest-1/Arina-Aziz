@@ -39,6 +39,8 @@
 
 html {
     scroll-behavior: smooth;
+    /* Запрещаем горизонтальный скролл на телефонах */
+    overflow-x: hidden;
 }
 
 body {
@@ -49,6 +51,8 @@ body {
     line-height: 1.65;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    /* Улучшаем тап-таргеты на мобильных */
+    -webkit-tap-highlight-color: rgba(107, 31, 46, 0.1);
 }
 
 body.modal-open {
@@ -92,7 +96,7 @@ h1, h2, h3 {
 }
 
 .section-heading {
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(1.75rem, 5vw, 3rem);
     text-align: center;
     margin-bottom: 25px;
     line-height: 1.15;
@@ -100,7 +104,7 @@ h1, h2, h3 {
 }
 
 .section-lead {
-    font-size: 1.05rem;
+    font-size: 1rem;
     color: var(--text-muted);
     text-align: center;
     max-width: 560px;
@@ -114,7 +118,10 @@ h1, h2, h3 {
 .hero {
     position: relative;
     height: 100vh;
-    min-height: 640px;
+    /* На мобильных используем dvh — он корректнее учитывает
+       адресную строку браузера */
+    height: 100dvh;
+    min-height: 560px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -132,46 +139,68 @@ h1, h2, h3 {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    animation: slowZoom 20s ease-in-out infinite alternate;
+    object-position: center;
+    animation: slowZoom 25s ease-in-out infinite alternate;
 }
 
 @keyframes slowZoom {
     from { transform: scale(1); }
-    to { transform: scale(1.08); }
+    to { transform: scale(1.1); }
 }
 
 .hero-overlay {
     position: absolute;
     inset: 0;
     z-index: 2;
-    background: linear-gradient(
-        180deg,
-        rgba(46, 31, 24, 0.45) 0%,
-        rgba(74, 21, 32, 0.55) 50%,
-        rgba(46, 31, 24, 0.75) 100%
-    );
+    background:
+        radial-gradient(circle at center, rgba(46, 31, 24, 0.15) 0%, rgba(20, 12, 8, 0.75) 100%),
+        linear-gradient(
+            180deg,
+            rgba(46, 31, 24, 0.4) 0%,
+            rgba(74, 21, 32, 0.35) 40%,
+            rgba(20, 12, 8, 0.7) 100%
+        );
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.55) 100%);
+    pointer-events: none;
 }
 
 .hero-content {
     position: relative;
-    z-index: 3;
+    z-index: 4;
     color: white;
-    padding: 0 24px;
-    animation: heroFadeIn 1.5s ease;
-}
-
-@keyframes heroFadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    padding: 0 20px;
+    max-width: 1000px;
+    width: 100%;
 }
 
 .hero-subtitle {
-    font-size: 0.75rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
     letter-spacing: 6px;
     text-transform: uppercase;
     font-weight: 400;
-    margin-bottom: 35px;
-    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.85);
+    opacity: 0;
+    animation: heroFadeIn 1s ease 0.3s forwards;
+}
+
+.hero-subtitle::before,
+.hero-subtitle::after {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: rgba(217, 201, 168, 0.7);
+    vertical-align: middle;
+    margin: 0 12px;
 }
 
 /* ============================================================
@@ -179,76 +208,125 @@ h1, h2, h3 {
    ============================================================ */
 .hero-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(3.5rem, 12vw, 8rem);
-    color: white;
+    font-size: clamp(2.6rem, 13vw, 7.5rem);
+    color: #fff;
     font-weight: 400;
     font-style: italic;
-    line-height: 1;
-    margin-bottom: 40px;
+    line-height: 0.95;
+    margin-bottom: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0;
     letter-spacing: -0.02em;
-    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    text-shadow:
+        0 2px 20px rgba(0, 0, 0, 0.4),
+        0 4px 60px rgba(0, 0, 0, 0.3);
 }
 
-.hero-title span {
+.hero-name {
     display: block;
     line-height: 1.05;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: heroNameIn 1.4s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
 }
 
-.hero-title .amp {
+.hero-name:nth-child(1) { animation-delay: 0.5s; }
+.hero-name:nth-child(3) { animation-delay: 0.9s; }
+
+.hero-amp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 14px 0;
+    opacity: 0;
+    animation: heroFadeIn 1.2s ease 0.75s forwards;
+}
+
+.hero-amp-line {
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(217, 201, 168, 0.8), transparent);
+}
+
+.hero-amp-symbol {
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: 0.55em;
+    font-size: 0.5em;
     color: #d9c9a8;
     line-height: 1;
-    margin: 12px 0;
     font-weight: 400;
+    text-shadow: 0 0 20px rgba(217, 201, 168, 0.4);
 }
 
 .hero-date {
     display: inline-flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
     color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: heroFadeIn 1.2s ease 1.2s forwards;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .hero-date-line {
-    width: 40px;
+    width: 36px;
     height: 1px;
-    background: rgba(217, 201, 168, 0.7);
+    background: linear-gradient(90deg, transparent, rgba(217, 201, 168, 0.8), transparent);
 }
 
 .hero-date-text {
     font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     letter-spacing: 4px;
     text-transform: uppercase;
     font-weight: 400;
+    white-space: nowrap;
+}
+
+.hero-location {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(217, 201, 168, 0.9);
+    letter-spacing: 1px;
+    opacity: 0;
+    animation: heroFadeIn 1.2s ease 1.5s forwards;
+}
+
+@keyframes heroFadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroNameIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 /* Подсказка прокрутки */
 .scroll-hint {
     position: absolute;
-    bottom: 30px;
+    bottom: 22px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 3;
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 0.7rem;
+    z-index: 4;
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 0.65rem;
     letter-spacing: 3px;
     text-transform: uppercase;
     text-align: center;
-    animation: fadeIn 2s ease 1s backwards;
+    animation: fadeIn 2s ease 2s backwards;
 }
 
 .scroll-arrow {
     width: 1px;
-    height: 40px;
-    background: rgba(217, 201, 168, 0.5);
-    margin: 12px auto 0;
+    height: 32px;
+    background: rgba(217, 201, 168, 0.35);
+    margin: 10px auto 0;
     position: relative;
     overflow: hidden;
 }
@@ -400,6 +478,7 @@ h1, h2, h3 {
     transition: all 0.3s ease;
     border-bottom: 1px solid transparent;
     font-weight: 500;
+    padding: 8px 0;
 }
 
 .detail-link:hover {
@@ -409,7 +488,6 @@ h1, h2, h3 {
 
 /* ============================================================
    ГАЛЕРЕЯ — крупная, ровная, современная
-   Раскладка: 2 больших сверху + 3 средних снизу
    ============================================================ */
 .gallery-section {
     padding: 130px 0;
@@ -446,14 +524,12 @@ h1, h2, h3 {
     display: block;
 }
 
-/* Раскладка для 5 фото: 2 сверху + 3 снизу */
 .gallery-item:nth-child(1) { grid-column: span 3; grid-row: span 3; }
 .gallery-item:nth-child(2) { grid-column: span 3; grid-row: span 3; }
 .gallery-item:nth-child(3) { grid-column: span 2; grid-row: span 2; }
 .gallery-item:nth-child(4) { grid-column: span 2; grid-row: span 2; }
 .gallery-item:nth-child(5) { grid-column: span 2; grid-row: span 2; }
 
-/* Overlay */
 .gallery-item::before {
     content: '';
     position: absolute;
@@ -464,7 +540,6 @@ h1, h2, h3 {
     pointer-events: none;
 }
 
-/* Иконка "+" */
 .gallery-item::after {
     content: '+';
     position: absolute;
@@ -576,6 +651,8 @@ h1, h2, h3 {
     width: 100%;
     position: relative;
     overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 44px;
 }
 
 .action-btn::before {
@@ -687,6 +764,7 @@ h1, h2, h3 {
     visibility: hidden;
     transition: opacity 0.35s ease, visibility 0.35s ease;
     z-index: 1000;
+    overflow-y: auto;
 }
 
 .modal-overlay.active {
@@ -706,6 +784,7 @@ h1, h2, h3 {
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
     transform: translateY(30px) scale(0.97);
     transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+    -webkit-overflow-scrolling: touch;
 }
 
 .modal-overlay.active .modal {
@@ -714,17 +793,17 @@ h1, h2, h3 {
 
 .modal-close {
     position: absolute;
-    top: 16px;
-    right: 20px;
-    background: none;
+    top: 12px;
+    right: 12px;
+    background: rgba(240, 233, 222, 0.6);
     border: none;
-    font-size: 1.7rem;
+    font-size: 1.6rem;
     line-height: 1;
     color: var(--text-muted);
     cursor: pointer;
     padding: 0;
-    width: 36px;
-    height: 36px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     transition: all 0.25s ease;
     display: flex;
@@ -732,6 +811,7 @@ h1, h2, h3 {
     justify-content: center;
     font-family: 'Inter', sans-serif;
     font-weight: 300;
+    z-index: 10;
 }
 
 .modal-close:hover {
@@ -765,7 +845,7 @@ h1, h2, h3 {
     text-align: center;
     color: var(--text-muted);
     font-size: 0.9rem;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
     line-height: 1.7;
 }
 
@@ -777,7 +857,7 @@ h1, h2, h3 {
 }
 
 .form-group {
-    margin-bottom: 22px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
@@ -794,14 +874,24 @@ h1, h2, h3 {
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 14px 16px;
+    padding: 15px 16px;
     border: 1px solid var(--line);
     border-radius: 4px;
     font-family: inherit;
-    font-size: 0.95rem;
+    font-size: 16px; /* 16px предотвращает автозум на iOS */
     transition: all 0.3s ease;
     background: var(--white);
     color: var(--text);
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.form-group select {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236e5341' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    padding-right: 42px;
 }
 
 .form-group input:focus,
@@ -841,6 +931,7 @@ h1, h2, h3 {
     font-size: 0.9rem;
     background: var(--white);
     margin: 0;
+    min-height: 48px;
 }
 
 .radio-group label:hover {
@@ -852,6 +943,8 @@ h1, h2, h3 {
     width: auto;
     accent-color: var(--burgundy);
     margin: 0;
+    min-width: 18px;
+    min-height: 18px;
 }
 
 .radio-group label:has(input:checked) {
@@ -862,7 +955,7 @@ h1, h2, h3 {
 
 .submit-btn {
     width: 100%;
-    padding: 17px;
+    padding: 18px;
     background-color: var(--burgundy);
     color: white;
     border: none;
@@ -875,12 +968,18 @@ h1, h2, h3 {
     margin-top: 10px;
     font-family: inherit;
     font-weight: 500;
+    min-height: 52px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .submit-btn:hover {
     background-color: var(--burgundy-dark);
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(107, 31, 46, 0.35);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
 }
 
 /* ============================================================
@@ -935,7 +1034,7 @@ h1, h2, h3 {
 .wishlist-item {
     display: flex;
     align-items: flex-start;
-    gap: 18px;
+    gap: 16px;
     padding: 18px 20px;
     border-radius: 6px;
     background: var(--white);
@@ -995,25 +1094,36 @@ h1, h2, h3 {
 /* ============================================================
    АДАПТИВНОСТЬ
    ============================================================ */
+
+/* --- Планшеты --- */
 @media (max-width: 900px) {
     .gallery {
         grid-auto-rows: 110px;
         gap: 12px;
     }
+
+    .section-container,
+    .section-container-wide {
+        padding: 0 20px;
+    }
 }
 
+/* --- Большие телефоны / маленькие планшеты --- */
 @media (max-width: 700px) {
     .couple-grid {
         grid-template-columns: 1fr;
-        gap: 50px;
+        gap: 40px;
+        margin-top: 40px;
     }
 
     .details-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .action-buttons {
         grid-template-columns: 1fr;
+        gap: 14px;
     }
 
     .couple-section,
@@ -1021,95 +1131,29 @@ h1, h2, h3 {
     .gallery-section,
     .timer-section,
     .actions-section {
-        padding: 80px 0;
+        padding: 70px 0;
+    }
+
+    .section-lead {
+        margin-bottom: 35px;
+        font-size: 0.95rem;
     }
 
     .detail-card {
-        padding: 40px 25px;
+        padding: 35px 22px;
     }
 
-    .timer-item {
-        min-width: 80px;
-        padding: 18px 12px;
+    .detail-card h3 {
+        font-size: 1.5rem;
     }
 
-    .timer-number {
-        font-size: 2.2rem;
+    .action-btn {
+        padding: 32px 20px;
     }
 
-    .timer-label {
-        font-size: 0.65rem;
+    .action-btn-title {
+        font-size: 1.3rem;
     }
 
-    .modal {
-        padding: 45px 25px 35px;
-    }
-
-    .modal-title {
-        font-size: 1.7rem;
-    }
-
-    .radio-group label {
-        min-width: 100%;
-    }
-
-    .hero-title {
-        letter-spacing: -0.01em;
-    }
-
-    .scroll-hint {
-        font-size: 0.6rem;
-        letter-spacing: 2px;
-    }
-
-    .footer-names {
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 600px) {
-    /* Галерея на телефоне: 1 крупное фото в ряд */
-    .gallery {
-        grid-template-columns: 1fr;
-        grid-auto-rows: 260px;
-        gap: 12px;
-        padding: 0 14px;
-    }
-
-    .gallery-item:nth-child(1),
-    .gallery-item:nth-child(2),
-    .gallery-item:nth-child(3),
-    .gallery-item:nth-child(4),
-    .gallery-item:nth-child(5) {
-        grid-column: span 1;
-        grid-row: span 1;
-    }
-
-    .gallery-section {
-        padding: 80px 0;
-    }
-}
-
-@media (max-width: 480px) {
     .timer {
         gap: 10px;
-    }
-
-    .timer-item {
-        min-width: 70px;
-        padding: 15px 8px;
-    }
-
-    .timer-number {
-        font-size: 1.8rem;
-    }
-
-    .wishlist-item {
-        padding: 15px;
-        gap: 12px;
-    }
-
-    .wishlist-info strong {
-        font-size: 1.1rem;
-    }
-}
